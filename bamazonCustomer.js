@@ -1,5 +1,6 @@
 var inquirer = require('inquirer');
 var mysql = require('mysql');
+var stock = '';
 
 
 var connection = mysql.createConnection({
@@ -38,10 +39,10 @@ function placeOrder(){
   	  	type: "input",
   	  	message: "What is the ID of the product you'd like to purchase?",
   	  	validate: function(value) {
-      		    if (isNaN(value) === false) {
-      		      return true;
-      		    }
-      		    return false;
+      		if (isNaN(value) === false) {
+      		  return true;
+      		}
+      		return false;
       	}
   	},
   	{
@@ -49,42 +50,44 @@ function placeOrder(){
   	  	type: "input",
   	  	message: "How many would you like to purchase?",
   	  	validate: function(value) {
-      		    if (isNaN(value) === false) {
-      		      return true;
-      		    }
-      		    return false;
+      		if (isNaN(value) === false) {
+      		  return true;
+      		}
+      		return false;
       	}
   	}
   	]).then(function(answer) {
+
   		// Get selected products stock quantity
   		var query = "SELECT stock_quantity FROM products WHERE ?";
   		connection.query(query, {position:answer.whichId}, function(err, res) {	
 
   			// check if ordered amount is available
-  			var stock = '';
-
   			for(i=0; i<res.length; i++){
   				stock = res[i].stock_quantity
   			}
-
-    	  	if(stock < answer.howMany){
-    	  		console.log('Not enough inventory');
-    	  		placeOrder();
-    	  	} else{
-    	  		console.log('Purchased');
-    	  		updateInventory(answer, res);
-    	  	}
+    	  if(stock < answer.howMany){
+    	  	console.log('Not enough inventory');
+    	  	placeOrder();
+    	  } else{
+    	  	console.log('Purchased');
+    	  	updateInventory(answer, res);
+    	  }
   		});	
   	});
 }
 
-// 
+// Update Inventory
 function updateInventory(answer, res){
-	var query = "UPDATE products SET res.stock_quantity = res.stock_quantity - answer.howMany WHERE ?";
-  	connection.query(query, {position:answer.whichId}, function(err, res) {	
-      	console.log(res);
-  	});
+
+console.log(answer);
+
+	console.log(res[0].stock_quantity);
+	res[0].stock_quantity = res[0].stock_quantity - answer.howMany;
+	console.log(res[0].stock_quantity);
+
+	var query = "UPDATE stock_quantity FROM products WHERE ?";
+	connection.query(query, {position:answer.whichId}, function(err, res) {	
+
+	});
 }
-
-//SELECT answer.whichId IF stock_quantity < answer.howMany, res.stock_quantity - answer.howMany, console.log('not enough inventory');
-
