@@ -82,7 +82,7 @@ function placeOrder(){
 function updateInventory(answer, res){
 	var query = "UPDATE products SET res.stock_quantity = res.stock_quantity - answer.howMany WHERE ?";
   	connection.query(query, {position:answer.whichId}, function(err, res) {	
-      	console.log(err);
+      	console.log(res);
   	});
 }
 
