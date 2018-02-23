@@ -49,7 +49,7 @@ function viewSalesByDept(){
 	
   	var departmentTotals = 0;
   	// var query = "SELECT * FROM products";
-  	var query = "SELECT * FROM products FULL OUTER JOIN departments ON products.department_name=departments.department_name"
+  	var query = "SELECT * FROM departments RIGHT JOIN products ON (departments.department_name=products.department_name)"
   	connection.query(query, function(err, res) {
    		for (var i = 0; i < res.length; i++) {
    			departmentTotals = departmentTotals + res[i].product_sales;

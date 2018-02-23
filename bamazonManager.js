@@ -79,7 +79,7 @@ function viewLowInventory(){
    	}
    	if(lowstock === 0){
    		console.log('\n----------------------------------'); 
-   		console.log('All products are well stocked bossman'); 
+   		console.log('All products are well stocked Bossman'); 
    		console.log('----------------------------------'); 
    	}
    	displayOptions();
