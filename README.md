@@ -51,7 +51,6 @@ The dependencies should now be in the local `node_modules` folder.
 		- Product Name
 		- Department Name
 		- Price
-		- Stock Quantity
 
 2. The application will prompt the customer with two messages. Customer should:
 
@@ -126,7 +125,6 @@ The dependencies should now be in the local `node_modules` folder.
 
 		- View Product Sales by Department
 		- Create New Department
-		- Exit
 
 2. Selecting `View Product Sales by Department` will display a summary of the highest-grossing departments in the store. Each department will have the following information:
 
